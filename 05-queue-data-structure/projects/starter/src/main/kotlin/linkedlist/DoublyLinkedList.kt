@@ -30,6 +30,9 @@
 
 package linkedlist
 
+/*A doubly linked list is simply a linked list
+in which nodes also contain a reference to the previous node.*/
+
 class DoublyLinkedList<T : Any> {
 
   fun isEmpty(): Boolean {

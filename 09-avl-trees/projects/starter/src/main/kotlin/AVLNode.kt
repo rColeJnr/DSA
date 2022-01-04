@@ -53,23 +53,13 @@ class AVLNode<T>(var value: T) {
       }
     } ?: "${root}null\n"
   }
+  /*The height of the left and right children of each node must differ at most by 1. This is
+  known as the balance factor.*/
+  var height = 0
 
-  fun traverseInOrder(visit: Visitor<T>) {
-    leftChild?.traverseInOrder(visit)
-    visit(value)
-    rightChild?.traverseInOrder(visit)
-  }
+  val leftHeight: Int get() = leftChild?.height ?: -1
+  val rightHeight: Int get() = rightChild?.height ?: -1
+  val balanceFactor: Int get() = leftHeight - rightHeight
 
-  fun traversePreOrder(visit: Visitor<T>) {
-    visit(value)
-    leftChild?.traversePreOrder(visit)
-    rightChild?.traversePreOrder(visit)
-  }
-
-  fun traversePostOrder(visit: Visitor<T>) {
-    leftChild?.traversePostOrder(visit)
-    rightChild?.traversePostOrder(visit)
-    visit(value)
-  }
 
 }
