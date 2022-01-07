@@ -1,3 +1,5 @@
+import challenge.lexicographicalSort
+
 /*
  * Copyright (c) 2021 Razeware LLC
  *
@@ -30,5 +32,19 @@
 
 
 fun main() {
+//    "radix sort" example {
+//        val list = arrayListOf(88, 410, 1772, 20)
+//        println("Original: $list")
+//        list.radixSort()
+//        println("Radix sorted: $list")
+//    }
+
+    "MSD radix sort" example {
+        val list = (0..10).map { (Math.random() *
+                10000).toInt() }.toMutableList()
+        println("Original: $list")
+        list.lexicographicalSort()
+        println("Radix sorted: $list")
+    }
 }
 

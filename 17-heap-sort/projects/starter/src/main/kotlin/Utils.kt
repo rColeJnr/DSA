@@ -47,3 +47,11 @@ val ascending = Comparator { first: Int, second: Int ->
     else -> 0
   }
 }
+
+val descending = Comparator { first: Int, second: Int ->
+  when {
+    first < second -> 1
+    first > second -> -1
+    else -> 0
+  }
+}

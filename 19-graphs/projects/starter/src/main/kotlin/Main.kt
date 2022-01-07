@@ -30,4 +30,49 @@
 
 fun main() {
 
+    val graph = AdjacencyMatrix<String>()
+
+    val mozambique = graph.createVertex("Mozambique")
+    val angola = graph.createVertex("Angola")
+    val zambia = graph.createVertex("Zambia")
+    val southAfrica = graph.createVertex("South Africa")
+    val nigeria = graph.createVertex("Nigeria")
+    val zimbabwe = graph.createVertex("Zimbabwe")
+    val caboVerde = graph.createVertex("Cabo Verde")
+    val swazi = graph.createVertex("Swazi")
+    val tanzania = graph.createVertex("Tanzania")
+    val ghana = graph.createVertex("Ghana")
+
+    graph.add(EdgeType.UNDIRECTED, mozambique, angola, 300.0)
+    graph.add(EdgeType.UNDIRECTED, mozambique, southAfrica, 200.0)
+    graph.add(EdgeType.UNDIRECTED, mozambique, swazi, 200.0)
+    graph.add(EdgeType.UNDIRECTED, mozambique, nigeria, 200.0)
+    graph.add(EdgeType.UNDIRECTED, mozambique, ghana, 200.0)
+    graph.add(EdgeType.UNDIRECTED, nigeria, angola, 450.0)
+    graph.add(EdgeType.UNDIRECTED, zimbabwe, nigeria, 300.0)
+    graph.add(EdgeType.UNDIRECTED, caboVerde, mozambique, 350.0)
+    graph.add(EdgeType.UNDIRECTED, swazi, mozambique, 50.0)
+    graph.add(EdgeType.UNDIRECTED, swazi, zambia, 340.0)
+    graph.add(EdgeType.UNDIRECTED, southAfrica, nigeria, 550.0)
+    graph.add(EdgeType.UNDIRECTED, southAfrica, zimbabwe, 340.0)
+    graph.add(EdgeType.UNDIRECTED, angola, caboVerde, 456.0)
+    graph.add(EdgeType.UNDIRECTED, tanzania, angola, 245.0)
+    graph.add(EdgeType.UNDIRECTED, ghana, tanzania, 645.0)
+    graph.add(EdgeType.UNDIRECTED, nigeria, ghana, 645.0)
+    graph.add(EdgeType.UNDIRECTED, ghana, nigeria, 645.0)
+    graph.add(EdgeType.UNDIRECTED, nigeria, mozambique, 645.0)
+    graph.add(EdgeType.UNDIRECTED, ghana, angola, 645.0)
+    graph.add(EdgeType.UNDIRECTED, ghana, caboVerde, 645.0)
+    graph.add(EdgeType.UNDIRECTED, zambia, caboVerde, 645.0)
+    graph.add(EdgeType.UNDIRECTED, zambia, ghana, 645.0)
+    graph.add(EdgeType.UNDIRECTED, zambia, tanzania, 645.0)
+    graph.add(EdgeType.UNDIRECTED, zambia, zimbabwe, 645.0)
+
+    println(graph)
+
+    println("Mozambique Outgoing Flights:")
+    println("--------------------------------")
+    graph.edges(mozambique).forEach { edge ->
+        println("from: ${edge.source.data} to: ${edge.destination.data}")
+    }
 }

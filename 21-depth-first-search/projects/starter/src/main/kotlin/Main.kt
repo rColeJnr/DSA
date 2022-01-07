@@ -53,4 +53,9 @@ fun main() {
   vertices.forEach {
       println(it.data)
   }
+
+  val vertices2 = graph.depthFirstSearch(a)
+  vertices.forEach {
+    println(it.data)
+  }
 }

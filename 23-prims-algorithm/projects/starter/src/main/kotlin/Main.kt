@@ -47,4 +47,10 @@ fun main() {
   graph.add(EdgeType.UNDIRECTED, three, six, 4.0)
   graph.add(EdgeType.UNDIRECTED, four, six, 2.0)
   graph.add(EdgeType.UNDIRECTED, five, six, 6.0)
+
+  val (cost, mst) = Prim.produceMinimumSpanningTree(graph)
+  println("cost: $cost")
+  println("mst:")
+  println(mst)
+
 }

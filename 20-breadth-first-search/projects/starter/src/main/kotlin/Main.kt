@@ -48,4 +48,9 @@ fun main() {
   graph.add(EdgeType.UNDIRECTED, e, h, null)
   graph.add(EdgeType.UNDIRECTED, e, f, null)
   graph.add(EdgeType.UNDIRECTED, f, g, null)
+
+  val vertices = graph.breadthFirstSearch(a)
+  vertices.forEach {
+    println(it.data)
+  }
 }

@@ -83,7 +83,7 @@ abstract class AbstractHeap<T: Any>() : Heap<T> {
     return item
   }
 
-  private fun siftDown(index: Int) {
+  fun siftDown(index: Int) {
     var parent = index // 1
     while (true) { // 2
       val left = leftChildIndex(parent) //3

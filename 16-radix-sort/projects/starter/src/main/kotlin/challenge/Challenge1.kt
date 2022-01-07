@@ -29,3 +29,74 @@
  */
 
 package challenge
+
+import java.lang.Math.pow
+
+/*The implementation discussed in the chapter used a least significant digit radix sort.
+Your task is to implement a most significant digit (MSD) radix sort.
+This sorting behavior is called lexicographical sorting and is also used for String
+sorting.*/
+/**returns the number of digits that the Int has. For
+example, the value of 1024 has four digits.*/
+fun Int.digits(): Int {
+    var count = 0
+    var num = this
+    while (num != 0) {
+        count += 1
+        num /= 10
+    }
+    return  count
+}
+
+/**returns the digit at a given position. Like lists, the leftmost
+position is zero.*/
+/*The implementation of digit() works by repeatedly chopping a digit off the end of
+the number, until the requested digit is at the end. It’s then extracted using the
+remainder operator.*/
+fun Int.digit(atPosition: Int) : Int? {
+    val correctedPosition = (atPosition + 1).toDouble()
+    if (correctedPosition > digits()) return null
+
+    var num = this
+    while (num / (pow(10.0, correctedPosition).toInt()) != 0){
+        num /= 10
+    }
+    return num % 10
+}
+
+fun MutableList<Int>.lexicographicalSort()  {
+    val newList = msdRadixSorted(this, 0)
+    this.clear()
+    this.addAll(newList)
+}
+
+private fun msdRadixSorted(list: MutableList<Int>, position: Int): MutableList<Int> {
+    if (position >= list.maxDigits()) return list
+
+    // 1
+    val buckets = MutableList<MutableList<Int>>(10) { mutableListOf() }
+    // 2
+    val priorityBucket = arrayListOf<Int>()
+    // 3
+    list.forEach { number ->
+        val digit = number.digit(position)
+        if (digit == null) {
+            priorityBucket.add(number)
+            return@forEach
+        }
+        buckets[digit].add(number)
+    }
+
+    val newValues = buckets.reduce { result, bucket ->
+        if (bucket.isEmpty()) return@reduce result
+        result.addAll(msdRadixSorted(bucket, position + 1))
+        result
+    }
+    priorityBucket.addAll(newValues)
+
+    return priorityBucket
+}
+
+private fun List<Int>.maxDigits(): Int {
+    return this.maxOrNull()?.digits() ?: 0
+}

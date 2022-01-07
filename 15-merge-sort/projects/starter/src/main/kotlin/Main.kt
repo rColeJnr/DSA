@@ -1,3 +1,6 @@
+import mergesort.mergeIterables
+import mergesort.mergeSort
+
 /*
  * Copyright (c) 2021 Razeware LLC
  *
@@ -29,5 +32,18 @@
  */
 
 fun main() {
+    "merge sort" example {
+        val list = listOf(7, 2, 6, 3, 9)
+        println("Original: $list")
+        val result = list.mergeSort()
+        println("Merge sorted: $result")
+    }
 
+    "merge iterables" example {
+        val list1 = listOf(1, 2, 5, 9, 6, 3, 7, 8, 10, 12, 15)
+        val list2 = listOf(1, 3, 4, 5, 5, 6, 7, 7)
+
+        val result = mergeIterables(list1, list2)
+        println("Merged: $result")
+    }
 }

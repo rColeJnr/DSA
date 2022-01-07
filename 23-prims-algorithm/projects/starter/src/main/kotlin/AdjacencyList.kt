@@ -49,6 +49,15 @@ class AdjacencyList<T: Any> : Graph<T> {
     return edges(source).firstOrNull { it.destination == destination }?.weight
   }
 
+  val vertices: Set<Vertex<T>>
+    get() = adjacencies.keys
+
+  fun copyVertices(graph: AdjacencyList<T>){
+    graph.vertices.forEach {
+      adjacencies[it] = arrayListOf()
+    }
+  }
+
   override fun toString(): String {
     return buildString {
       adjacencies.forEach { (vertex, edges) ->

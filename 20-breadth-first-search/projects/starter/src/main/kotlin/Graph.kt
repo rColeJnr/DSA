@@ -71,6 +71,87 @@ interface Graph<T: Any> {
     visited.remove(source)
   }
 
+  abstract val allVertices: ArrayList<Vertex<T>>
+
+  /*1. If there are no vertices, treat the graph as connected.
+2. Perform a breadth-first search starting from the first vertex. This will return all
+the visited nodes.
+3. Go through every vertex in the graph and check to see if it has been visited
+before.
+The graph is considered disconnected if a vertex is missing in the visited list.*/
+  fun isDisconnected(): Boolean {
+    val firstVertex = allVertices.firstOrNull() ?: return false
+
+    val visited = breadthFirstSearch(firstVertex)
+    allVertices.forEach { if (!visited.contains(it)) return true}
+    return false
+  }
+
+  /*Performance
+When traversing a graph using BFS, each vertex is enqueued once. This has a time
+complexity of O(V). During this traversal, you also visit all of the edges. The time it
+takes to visit all edges is O(E). This means that the overall time complexity for
+breadth-first search is O(V + E).
+The space complexity of BFS is O(V) since you have to store the vertices in three
+separate structures: queue , enqueued and visited .*/
+  fun breadthFirstSearch(source: Vertex<T>): ArrayList<Vertex<T>>{
+    val queue = QueueStack<Vertex<T>>()
+    val enqueued = mutableSetOf<Vertex<T>>()
+    val visited = ArrayList<Vertex<T>>()
+
+    queue.enqueue(source)
+    enqueued.add(source)
+
+    while (true) {
+      val vertex = queue.dequeue() ?: break
+      visited.add(vertex)
+
+      val neighborEdges = edges(vertex)
+      neighborEdges.forEach {
+        if (!enqueued.contains(it.destination)){
+          queue.enqueue(it.destination)
+          enqueued.add(it.destination)
+        }
+      }
+    }
+
+    return visited
+  }
+
+  /*Recursive*/
+  fun bfs(source: Vertex<T>): ArrayList<Vertex<T>> {
+    val queue = QueueStack<Vertex<T>>()
+    val enqueued = mutableSetOf<Vertex<T>>()
+    val visited = arrayListOf<Vertex<T>>()
+
+    queue.enqueue(source)
+    enqueued.add(source)
+
+    bfs(queue, enqueued, visited)
+
+    return visited
+  }
+/*1. We start from the first node we dequeue from the queue of all vertices. Then we
+recursively continue to dequeue a vertex from the queue till it’s empty.
+2. Mark the vertex as visited.
+3. For every neighboring edge from the current vertex .
+4. Check to see if the adjacent vertices have been visited before inserting into the
+queue.
+5. Recursively perform bfs until the queue is empty.
+The overall time complexity for breadth-first search is O(V + E).*/
+  private fun bfs(queue: QueueStack<Vertex<T>>, enqueued: MutableSet<Vertex<T>>, visited: ArrayList<Vertex<T>>){
+    val vertex = queue.dequeue() ?: return
+    visited.add(vertex)
+
+    val neighborEdges = edges(vertex)
+    neighborEdges.forEach {
+      if (!enqueued.contains(it.destination)) {
+        queue.enqueue(it.destination)
+        enqueued.add(it.destination)
+      }
+    }
+    bfs(queue, enqueued, visited)
+  }
 }
 
 enum class EdgeType {

@@ -54,4 +54,12 @@ fun main() {
   graph.add(EdgeType.UNDIRECTED, e, c, 8.0)
   graph.add(EdgeType.DIRECTED, e, b, 1.0)
   graph.add(EdgeType.DIRECTED, e, d, 2.0)
+
+  val dijkstra = Dijkstra(graph)
+  val pathsFromA = dijkstra.shortestPath(a)
+  val path = dijkstra.specificPath(d, pathsFromA)
+  path.forEach { // 3
+    println("${it.source.data} --|${it.weight ?: 0.0}|--> + " +
+            "${it.destination.data}")
+  }
 }

@@ -28,6 +28,12 @@
  * THE SOFTWARE.
  */
 
+fun <T> MutableList<T>.swapAt(first: Int, second: Int){
+  val tmp = this[first]
+  this[first] = this[second]
+  this[second] = tmp
+}
+
 infix fun String.example(function: () -> Unit) {
   println("---Example of $this---")
   function()
